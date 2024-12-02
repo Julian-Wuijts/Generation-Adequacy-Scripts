@@ -61,13 +61,13 @@ def CreateLoadCurve(YPL):
     # Adapt the HPL data from excel and store them in a list
     # There are separate lists for a weekday and a weekend day, as well as for the three specified season categories
     HPL = HPL_excel.to_numpy()
-    HPL_winter_weekday = HPL[np.ix_([1],np.arange(3, HPL.shape[1]))].flatten()
-    HPL_summer_weekday = HPL[np.ix_([7],np.arange(3, HPL.shape[1]))].flatten()
-    HPL_spring_fall_weekday = HPL[np.ix_([13],np.arange(3, HPL.shape[1]))].flatten()
+    HPL_winter_weekday = HPL[np.ix_([1],np.arange(3, HPL.shape[1]-3))].flatten()
+    HPL_summer_weekday = HPL[np.ix_([7],np.arange(3, HPL.shape[1]-3))].flatten()
+    HPL_spring_fall_weekday = HPL[np.ix_([13],np.arange(3, HPL.shape[1]-3))].flatten()
 
-    HPL_winter_weekend = HPL[np.ix_([4],np.arange(3, HPL.shape[1]))].flatten()
-    HPL_summer_weekend = HPL[np.ix_([10],np.arange(3, HPL.shape[1]))].flatten()
-    HPL_spring_fall_weekend = HPL[np.ix_([16],np.arange(3, HPL.shape[1]))].flatten()
+    HPL_winter_weekend = HPL[np.ix_([4],np.arange(3, HPL.shape[1]-3))].flatten()
+    HPL_summer_weekend = HPL[np.ix_([10],np.arange(3, HPL.shape[1]-3))].flatten()
+    HPL_spring_fall_weekend = HPL[np.ix_([16],np.arange(3, HPL.shape[1]-3))].flatten()
 
     # Initialising the lists with the hourly data for a week
     HPL_winter = []
@@ -97,7 +97,6 @@ def CreateLoadCurve(YPL):
             HPL_list.extend(HPL_spring_fall)
         else:
             print('something went wrong!') # A check to ensure that all 52 weeks are assigned
-
 
     HPL_plot = np.multiply(DPL_plot, HPL_list) / 100 # Divide HPL_list by 100 to get a percentage and multiply it with the DPL_plot values to get the absolute value
     HPL_plot_sorted = np.sort(HPL_plot)[::-1]
